@@ -23,21 +23,16 @@ class ThreadMutexObject
          : object(initialValue),
            lastCopy(initialValue)
         {}
-
         void assignValue(T newValue)
         {
             boost::mutex::scoped_lock lock(mutex);
-
             object = lastCopy = newValue;
-
             lock.unlock();
         }
-
         boost::mutex & getMutex()
         {
             return mutex;
         }
-
         T & getReference()
         {
             return object;

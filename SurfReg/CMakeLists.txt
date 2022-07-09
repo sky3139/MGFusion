@@ -6,7 +6,7 @@ set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -W -Wall")
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native")
 
-set(EXECUTABLE_OUTPUT_PATH ../bin)
+# set(EXECUTABLE_OUTPUT_PATH ../bin)
 
 
 
@@ -24,8 +24,12 @@ endif()
 
 set(CMAKE_CXX_FLAGS "-O3 -msse2 -msse3")
 
-add_executable (SurfReg SurfReg.cpp)
-target_link_libraries (SurfReg  ${Boost_LIBRARIES} ${PCL_LIBRARIES} -lpthread)
+add_executable (surfReg SurfReg.cpp)
+target_link_libraries (surfReg  ${Boost_LIBRARIES} ${PCL_LIBRARIES} -lpthread)
+
+add_executable (hausdorff hausdorff.cc)
+target_link_libraries (hausdorff  ${Boost_LIBRARIES} ${PCL_LIBRARIES} -lpthread)
+
 
 
 
@@ -39,4 +43,8 @@ qt5_generate_moc(main.cpp main.moc)
 add_executable (pcd_ply_converter src/main.cpp)
 target_link_libraries (pcd_ply_converter ${PCL_LIBRARIES} Qt5::Widgets)
 
+find_package(OpenCV  REQUIRED)
+include_directories(${OpenCV_INCLUDE_DIRS})
+link_directories(${OpenCV_LIBRARY_DIRS})
+add_subdirectory(emd)
 
